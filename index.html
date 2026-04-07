@@ -986,6 +986,9 @@
     // Link ảnh gợi ý 2 (dùng cho câu hỏi 2 và câu hỏi 3)
     const HINT_2_IMG = "https://raw.githubusercontent.com/designdaovn/Vongxoaytoiac_nhiemvu1/refs/heads/main/NV1_GY2.png"; // ← THAY LINK GỢI Ý 2
 
+    // Ảnh mở ra ở cửa sổ mới khi trả lời đúng câu 2
+    const Q2_UNLOCK_IMG = ""; // ← THAY LINK ẢNH VÀO ĐÂY
+
     // Link bản đồ (để "" nếu chưa có)
     const MAP_URL = "";
 
@@ -1046,11 +1049,16 @@
       if (!selected) { alert("⚠ Bạn chưa chọn đáp án!"); return; }
 
       if (selected.value === 'correct') {
-        document.getElementById('q2-block').style.display = 'none';
-        document.getElementById('q3-block').style.display = 'block';
-        setStep(3);
-        setTimeout(() => document.getElementById('q3-input').focus(), 100);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Mở ảnh ở cửa sổ mới
+        if (Q2_UNLOCK_IMG) window.open(Q2_UNLOCK_IMG, '_blank', 'noopener');
+        // Chuyển sang câu 3
+        setTimeout(() => {
+          document.getElementById('q2-block').style.display = 'none';
+          document.getElementById('q3-block').style.display = 'block';
+          setStep(3);
+          setTimeout(() => document.getElementById('q3-input').focus(), 100);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 300);
       } else {
         showWrong();
       }
